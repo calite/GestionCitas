@@ -1,0 +1,47 @@
+# CitaFlow MVP
+
+Stack:
+- Backend: Django + DRF + JWT
+- Frontend: Angular standalone + FullCalendar
+- DB: PostgreSQL
+- Infra: Docker Compose
+
+## Run
+
+`ash
+docker compose up --build
+`
+
+## URLs
+
+- Frontend: http://localhost:4200/demo
+- Backend API: http://localhost:8000/api/
+
+## Public endpoints
+
+- GET /api/{slug}/services
+- GET /api/{slug}/availability?date=YYYY-MM-DD&service_id={id}
+- POST /api/{slug}/appointments
+
+## Admin endpoints
+
+- POST /api/auth/login
+- GET /api/admin/appointments
+- PATCH /api/admin/appointments/{id}
+- POST /api/admin/blocks
+- CRUD /api/admin/services
+
+## Seed data
+
+On startup, backend runs seed_demo and creates:
+- establishment slug: demo
+- name: Demo Business
+"@ | Set-Content README.md
+
+@"
+PROMPT_CODEX.txt
+__pycache__/
+*.pyc
+.env
+node_modules/
+dist/

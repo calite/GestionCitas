@@ -1,0 +1,314 @@
+:root {
+  --bg: #f2efe9;
+  --paper: #fffdf8;
+  --ink: #1e1a16;
+  --muted: #6f665d;
+  --brand: #0f766e;
+  --brand-strong: #0b5f59;
+  --line: #d8d0c6;
+  --success: #1d7f46;
+  --error: #a6372f;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Aptos", "Trebuchet MS", sans-serif;
+  color: var(--ink);
+  line-height: 1.4;
+  background:
+    radial-gradient(circle at 10% 10%, #f8d9b3 0%, rgba(248, 217, 179, 0) 35%),
+    radial-gradient(circle at 90% 20%, #cce9df 0%, rgba(204, 233, 223, 0) 30%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+.public-page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 16px 52px;
+}
+
+.hero {
+  background: linear-gradient(135deg, #134e4a, #115e59);
+  color: #f8fafc;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 14px 34px rgba(17, 94, 89, 0.22);
+}
+
+.kicker {
+  margin: 0;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.hero h1 { margin: 8px 0 6px; font-size: clamp(28px, 5vw, 42px); }
+.subtitle { margin: 0; color: #d6f3ef; }
+
+.top-nav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.booking-grid {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.panel,
+.admin-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(30, 26, 22, 0.04);
+}
+
+.admin-wrap .admin-card {
+  margin-bottom: 16px;
+}
+
+.panel h2,
+.admin-card h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.panel-wide { grid-column: 1 / -1; }
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.status { font-size: 13px; color: var(--muted); }
+
+.input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-size: 15px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  margin-top: 6px;
+}
+
+.input:hover { background: #fffdfa; }
+
+.input:focus {
+  outline: 2px solid #8ed3ca;
+  border-color: #78b9b1;
+  box-shadow: 0 0 0 4px rgba(142, 211, 202, 0.2);
+}
+
+.hint { margin: 10px 0 0; color: var(--muted); font-size: 14px; }
+
+.slots { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.slot {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.slot-active {
+  border-color: var(--brand);
+  background: #d7f2ee;
+  color: #09413d;
+  font-weight: 700;
+}
+
+.form-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.btn-primary,
+.btn-secondary {
+  border-radius: 11px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.btn-primary {
+  margin-top: 12px;
+  border: 0;
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.22);
+}
+
+.btn-primary:hover { background: var(--brand-strong); }
+.btn-primary:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(15, 118, 110, 0.2); }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-secondary {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  margin-left: 6px;
+}
+
+.btn-secondary:hover { background: #f3f0ea; }
+
+.message { margin: 10px 0 0; font-weight: 600; }
+.success { color: var(--success); }
+.error { color: var(--error); }
+
+.admin-wrap {
+  max-width: 1080px;
+  margin: 18px auto;
+  padding: 0 16px 28px;
+}
+
+.admin-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.table th,
+.table td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  color: #534a42;
+  font-weight: 700;
+  background: rgba(216, 208, 198, 0.22);
+}
+
+.row-today { background: #eefbf8; }
+
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.business-card {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: #fff;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.business-card:hover {
+  background: #f7f4ef;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(30, 26, 22, 0.08);
+}
+
+.business-card h3 { margin: 0 0 4px; }
+.business-card p { margin: 0; color: var(--muted); }
+
+.admin-auth .admin-card {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 22px;
+}
+
+.admin-auth .hint,
+.admin-auth .message {
+  max-width: 390px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.auth-field {
+  max-width: 390px;
+  margin: 0 auto 16px;
+}
+
+.auth-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+
+.auth-input {
+  box-shadow: 0 1px 0 rgba(30, 26, 22, 0.04);
+}
+
+.auth-submit {
+  width: 100%;
+  max-width: 390px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4px;
+  display: block;
+}
+
+.admin-auth h1 { text-align: center; margin-top: 2px; }
+.admin-auth .hint { text-align: center; margin-bottom: 12px; }
+
+.auth-error {
+  border: 1px solid rgba(166, 55, 47, 0.28);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: rgba(166, 55, 47, 0.08);
+  margin-top: 14px;
+}
+
+.admin-card > h2 {
+  margin-bottom: 14px;
+}
+
+.admin-card .form-row + .form-row {
+  margin-top: 10px;
+}
+
+.admin-card .btn-primary {
+  margin-top: 16px;
+}
+
+.admin-card .hint {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 760px) {
+  .booking-grid,
+  .form-row { grid-template-columns: 1fr; }
+
+  .hero { padding: 22px; }
+  .table { font-size: 13px; }
+  .btn-secondary { margin-left: 0; }
+}

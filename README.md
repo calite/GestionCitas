@@ -1,0 +1,166 @@
+# CitaFlow MVP
+
+CitaFlow es un MVP SaaS para gestión de reservas con arquitectura multi-tenant por establecimiento.
+
+## Stack
+
+- Backend: Django + Django REST Framework
+- Auth: JWT (SimpleJWT)
+- Frontend: Angular (standalone components)
+- Base de datos: PostgreSQL
+- Infra: Docker Compose
+
+## Características principales
+
+- Reserva pública por negocio (`/{slug}`)
+- Multi-tenant real en admin:
+  - `superuser`: visión global
+  - `owner_<slug>`: solo su establecimiento
+- Cálculo de disponibilidad considerando:
+  - disponibilidad semanal
+  - citas existentes
+  - capacidad simultánea
+  - bloqueos manuales
+  - duración del servicio
+- Gestión admin de:
+  - reservas
+  - servicios
+  - disponibilidad semanal
+  - bloqueos puntuales
+  - creación de nuevos negocios (solo superuser)
+- Seed de datos de demo con varios negocios
+
+## Estructura
+
+- `backend/` API Django
+- `frontend/` app Angular
+- `docker-compose.yml`
+
+## Levantar proyecto
+
+Desde `D:\proyectos\CitaFlow`:
+
+```bash
+docker compose up --build
+```
+
+URLs:
+
+- Frontend: `http://localhost:4200/`
+- API base: `http://localhost:8000/api/`
+- Django admin: `http://localhost:8000/admin/`
+
+## Credenciales
+
+### Dueños por establecimiento
+
+Cada establecimiento tiene su owner:
+
+- `demo` -> `owner_demo` / `owner_demo`
+- `peluqueria` -> `owner_peluqueria` / `owner_peluqueria`
+- `taller` -> `owner_taller` / `owner_taller`
+- `dentista` -> `owner_dentista` / `owner_dentista`
+
+### Administrador global
+
+Crear superusuario:
+
+```bash
+docker compose exec backend python manage.py createsuperuser
+```
+
+Después puedes entrar por:
+
+- Front admin: `http://localhost:4200/admin/login`
+- Django admin: `http://localhost:8000/admin/`
+
+## Negocios de demo incluidos
+
+- `demo` (Demo Business)
+- `peluqueria` (Peluqueria Centro)
+- `taller` (Taller Motor Plus)
+- `dentista` (Clinica Dental Sonrisa)
+
+## Flujo funcional
+
+### Público
+
+1. Ir a `http://localhost:4200/`
+2. Elegir negocio
+3. Elegir servicio, fecha y hora
+4. Introducir datos y crear reserva
+
+### Admin
+
+1. Login en `/admin/login`
+2. Acceso a panel `/admin`
+3. Pestañas:
+   - Reservas
+   - Servicios
+   - Disponibilidad
+   - Bloqueos
+   - Negocios (solo superuser)
+
+## Personalización de agenda
+
+### Disponibilidad
+
+Define horarios recurrentes semanales por día/hora.
+
+### Bloqueos
+
+Define excepciones puntuales (vacaciones, cortes, cierres, etc.).
+Aunque un hueco exista por disponibilidad semanal, si está bloqueado no se ofrece.
+
+## Endpoints
+
+### Públicos
+
+- `GET /api/establishments`
+- `GET /api/{slug}/services`
+- `GET /api/{slug}/availability?date=YYYY-MM-DD&service_id={id}`
+- `POST /api/{slug}/appointments`
+
+### Admin (JWT)
+
+- `POST /api/auth/login`
+- `GET /api/admin/me`
+- `GET /api/admin/appointments`
+- `PATCH /api/admin/appointments/{id}`
+- `POST /api/admin/blocks`
+- `GET/POST/PATCH/DELETE /api/admin/services/`
+- `GET/POST/PATCH/DELETE /api/admin/establishments/` (superuser)
+- `GET/POST/DELETE /api/admin/availability/`
+
+## Multi-tenant y permisos
+
+- Owners ven/gestionan solo recursos de sus establecimientos.
+- Superuser ve/gestiona globalmente todos los recursos.
+- Al crear un establecimiento nuevo, se crea automáticamente:
+  - usuario: `owner_<slug>`
+  - password: `owner_<slug>`
+
+## Comandos útiles
+
+Reiniciar servicios:
+
+```bash
+docker compose restart backend frontend
+```
+
+Ejecutar seed manualmente:
+
+```bash
+docker compose exec backend python manage.py seed_demo
+```
+
+Parar todo:
+
+```bash
+docker compose down
+```
+
+## Notas
+
+- El backend usa `EMAIL_BACKEND` de consola para MVP.
+- Las fechas se almacenan con timezone (`UTC`) y se muestran en hora local del navegador.
